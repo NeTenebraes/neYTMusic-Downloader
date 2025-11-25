@@ -87,15 +87,9 @@ curl -fsSL https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/ma
 
 ## Contribuciones y Apoyo
 
-### Colaboración (Issues y Pull Requests)
-
 Mejoras, nuevas ideas y reportes de *bugs* son siempre bienvenidos. Tu ayuda es crucial para mantener y este proyecto.
 
 * Puedes **abrir un *Issue*** en el repositorio para reportar problemas o proponer nuevas funcionalidades.
 * Puedes **enviar un *Pull Request*** con tu código si deseas implementar una mejora directamente.
 
 ---
-
-### Apoya el Proyecto
-
-* **Invítame un cafesito:** [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G15D68T)
