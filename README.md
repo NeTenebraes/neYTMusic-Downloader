@@ -98,6 +98,4 @@ Mejoras, nuevas ideas y reportes de *bugs* son siempre bienvenidos. Tu ayuda es 
 
 ### Apoya el Proyecto
 
-Si este proyecto te ha salvado el ancho de banda, tus oídos están felices, y quieres apoyarme **pa' no morirme de hambre**, considera invitarme un cafesito de $1.
-
 * **Invítame un cafesito:** [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G15D68T)
