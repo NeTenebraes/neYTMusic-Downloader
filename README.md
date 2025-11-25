@@ -1,4 +1,4 @@
-# neYTMusic: Gestor de Música Offline y Eficiente para Redes Limitadas
+# neYTMusic: Gestor de Música para Redes Limitadas
 [![Debian](https://img.shields.io/badge/Supports-Debian-blue?logo=debian)](https://www.debian.org)
 [![Arch Linux](https://img.shields.io/badge/Supports-Arch%20Linux-brightgreen?logo=arch-linux)](https://archlinux.org)
 [![Fedora](https://img.shields.io/badge/Supports-Fedora-blueviolet?logo=fedora)](https://getfedora.org)
