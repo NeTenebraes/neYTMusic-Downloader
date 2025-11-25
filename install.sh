@@ -4,7 +4,11 @@ set -e
 clear
 
 cat << "EOF"
-
+      ____       _______   _____      __  __           _        _             
+     |  _ \ ___ |__   __| |_   _| __|  \/  | ___   ___| | _____| |_ ___  _ __ 
+     | |_) / _ \   | |      | |  / _` |\/| |/ _ \ / __| |/ / _ \ __/ _ \| '__|
+     |  _ <  __/   | |      | | | (_| |  | | (_) | (__|   <  __/ || (_) | |   
+     |_| \_\___|   |_|      |_|  \__,_|  |_|\___/ \___|_|\_\___|\__\___/|_|   
         Instalador automático neYTMusic Downloader
 EOF
 echo ""
@@ -36,11 +40,9 @@ else
     echo "Todas las dependencias están instaladas, continuando..."
 fi
 
-# Instalar script principal y módulo de actualización
+# Instalar script principal
 SCRIPT_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
-UPDATE_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/update.sh"
 INSTALL_PATH="$HOME/.local/bin/neYTMusic"
-UPDATE_PATH="$HOME/.local/bin/update.sh"
 
 echo ""
 echo "Descargando 'neYTMusic.sh'..."
@@ -51,15 +53,7 @@ else
 fi
 chmod +x "$INSTALL_PATH"
 
-echo "Descargando 'update.sh'..."
-if command -v curl &>/dev/null; then
-    curl -fsSL "$UPDATE_URL" -o "$UPDATE_PATH"
-else
-    wget -qO "$UPDATE_PATH" "$UPDATE_URL"
-fi
-chmod +x "$UPDATE_PATH"
-
-echo "Ambos scripts se han instalado en ~/.local/bin/ y sobrescribirán versiones previas."
+echo "El script principal se ha instalado en ~/.local/bin/ y sobrescribirá versiones previas."
 
 # Verificar PATH
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
@@ -69,4 +63,4 @@ fi
 
 echo ""
 echo "¡Instalación completa!"
-echo "Ejecuta 'neYTMusic' en tu terminal para iniciar (actualización automática incluida)."
+echo "Ejecuta 'neYTMusic' en tu terminal para iniciar (con actualizaciones automáticas integradas)."
