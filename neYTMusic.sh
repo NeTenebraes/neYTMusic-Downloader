@@ -49,7 +49,7 @@ cat << "EOF"
 ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚══╝╚══╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝                                                                                 
 by: NeTenebrae | https://github.com/NeTenebraes
 EOF
-VERSION_LOCAL="1.0.1"
+VERSION_LOCAL="1.0.0"
 echo "Versión actual: $VERSION_LOCAL"
 
 REPO_SCRIPT="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
