@@ -48,7 +48,7 @@ cat << "EOF"
 ██████╔╝╚██████╔╝██║ ╚████║╚███╔███╔╝███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
 ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚══╝╚══╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝                                                                                 
 EOF
-VERSION_LOCAL="1.0.4"
+VERSION_LOCAL="1.0.5"
 REPO_SCRIPT="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
 CHANGELOG_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/CHANGELOG.md"
 
@@ -75,7 +75,7 @@ UPDATE_CHECK() {
     wget -qO- "$CHANGELOG_URL" | head -20
     fi
     echo -e "\n"
-        read -e -p "\n¿Actualizar ahora el script? [Y/n]: \n" user_update
+        read -e -p "\n\n¿Actualizar ahora el script? [Y/n]: \n" user_update
         if [[ "$user_update" =~ ^[Yy]$ || -z "$user_update" ]]; then
             if command -v curl &>/dev/null; then
                 curl -fsSL "$REPO_SCRIPT" -o "$0"
