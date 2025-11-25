@@ -48,7 +48,7 @@ cat << "EOF"
 ██████╔╝╚██████╔╝██║ ╚████║╚███╔███╔╝███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
 ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚══╝╚══╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝                                                                                 
 EOF
-VERSION_LOCAL="1.0.2"
+VERSION_LOCAL="1.0.3"
 REPO_SCRIPT="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
 CHANGELOG_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/CHANGELOG.md"
 
@@ -192,6 +192,10 @@ esac
  
 
  
+
+
+
+
 
 
 
