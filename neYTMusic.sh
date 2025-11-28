@@ -39,17 +39,10 @@ cat << "EOF"
 ██╔██╗ ██║█████╗   ╚████╔╝    ██║   ██╔████╔██║██║   ██║███████╗██║██║                
 ██║╚██╗██║██╔══╝    ╚██╔╝     ██║   ██║╚██╔╝██║██║   ██║╚════██║██║██║                
 ██║ ╚████║███████╗   ██║      ██║   ██║ ╚═╝ ██║╚██████╔╝███████║██║╚██████╗           
-╚═╝  ╚═══╝╚══════╝   ╚═╝      ╚═╝   ╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝           
-                                                                                      
-██████╗  ██████╗ ███╗   ██╗██╗    ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗ 
-██╔══██╗██╔═══██╗████╗  ██║██║    ██║██║     ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
-██║  ██║██║   ██║██╔██╗ ██║██║ █╗ ██║██║     ██║   ██║███████║██║  ██║█████╗  ██████╔╝
-██║  ██║██║   ██║██║╚██╗██║██║███╗██║██║     ██║   ██║██╔══██║██║  ██║██╔══╝  ██╔══██╗
-██████╔╝╚██████╔╝██║ ╚████║╚███╔███╔╝███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
-╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚══╝╚══╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝                                                                                 
+╚═╝  ╚═══╝╚══════╝   ╚═╝      ╚═╝   ╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝                                                                                                                                                                         
 by: NeTenebrae | https://github.com/NeTenebraes
 EOF
-VERSION_LOCAL="1.0.0"
+VERSION_LOCAL="1.0.1"
 echo "Versión actual: $VERSION_LOCAL"
 
 REPO_SCRIPT="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
@@ -59,12 +52,6 @@ UPDATE_CHECK() {
     # 1. Verificaciones básicas de conectividad
     if ! ping -c 1 github.com &>/dev/null; then return; fi
     
-    # Herramientas necesarias
-    if ! command -v sha256sum &>/dev/null; then
-        echo "sha256sum no encontrado. No se puede verificar integridad."
-        return
-    fi
-
     # 2. Descargar el script remoto
     local remote_content
     if command -v curl &>/dev/null; then
@@ -182,7 +169,7 @@ case "$do_dl" in
         fi
 
         if [[ -z "$PROXY" ]]; then
-            read -r -p "¿Quieres usar un proxy para la descarga? (ejemplo: socks5://127.0.0.1:9050) [Enter para omitir]: " NEW_PROXY
+            read -r -p "¿Quieres usar un proxy para la descarga? [socks5://127.0.0.1:9050 | 192.168.1.1:8228]  [Enter para omitir]: " NEW_PROXY
             if [[ -n "$NEW_PROXY" ]]; then
                 PROXY="$NEW_PROXY"
                 echo "$PROXY" > "$PROXY_FILE"
@@ -196,17 +183,17 @@ case "$do_dl" in
         fi
         #Descarga con yt-dlp
         echo "Descargando solo los temas nuevos en mp3..."
-        yt-dlp $PROXY_ARG --yes-playlist -x --audio-format mp3 --embed-thumbnail --embed-metadata --download-archive "$ARCHIVE" "$URL"
+        yt-dlp $PROXY_ARG --yes-playlist -x --audio-format mp3 --embed-thumbnail --embed-metadata --download-archive "$ARCHIVE" "$URL" 
 
         # Reproducir tras descarga
         shopt -s nullglob
         files=("$DEST"/*.mp3)
         if [ ${#files[@]} -eq 0 ]; then
-            echo "No se encontraron archivos mp3 después de la descarga."
+            echo "No se encontraron archivos compatibles después de la descarga."
             exit 1
         else
             echo "¡Listo! Reproduciendo con mpv en modo aleatorio..."
-            nohup mpv --shuffle "${files[@]}" > /dev/null 2>&1 &
+            nohup mpv --no-audio-display --shuffle "${files[@]}" > /dev/null 2>&1 &
             exit 0
         fi
         ;;

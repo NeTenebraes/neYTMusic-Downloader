@@ -17,7 +17,7 @@ Script by NeTenebrae: https://github.com/NeTenebraes
 EOF
 echo ""
 
-DEPENDENCIAS=(yt-dlp mpv curl wget)
+DEPENDENCIAS=(yt-dlp mpv curl wget sha256sum)
 FALTAN=()
 
 for dep in "${DEPENDENCIAS[@]}"; do
