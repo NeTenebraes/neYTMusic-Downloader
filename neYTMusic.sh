@@ -193,8 +193,9 @@ case "$do_dl" in
             exit 1
         else
             echo "¡Listo! Reproduciendo con mpv en modo aleatorio..."
-            nohup mpv --no-audio-display --shuffle "${files[@]}" > /dev/null 2>&1 &
+            nohup mpv  --shuffle "${files[@]}" > /dev/null 2>&1 &
             exit 0
         fi
         ;;
 esac
+# --no-audio-display
