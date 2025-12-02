@@ -42,30 +42,34 @@ cat << "EOF"
 ╚═╝  ╚═══╝╚══════╝   ╚═╝      ╚═╝   ╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝                                                                                                                                                                         
 by: NeTenebrae | https://github.com/NeTenebraes
 EOF
+
 VERSION_LOCAL="1.0.1"
+
+REPO_SCRIPT="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
+CHANGELOG_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/CHANGELOG.md"
 
 CONFIGDIR="$HOME/.config/neYTMusic"
 MODULESDIR="$CONFIGDIR/Modules"
 PROXY_FILE="$CONFIGDIR/proxy"
 LIST_FILE="$CONFIGDIR/list"
 ARCHIVE="$CONFIGDIR/archive.txt"
+PROXY=""
+URL=""
+DEST="$HOME/Music/YTMusic"
 
-# Cargar módulos
+# Carga módulos
 if [ -d "$MODULESDIR" ]; then
   for module_script in "$MODULESDIR"/*.sh; do
     [ -e "$module_script" ] && source "$module_script"
   done
 fi
 
-PROXY=""
-URL=""
-DEST="$HOME/Music/YTMusic"
-
 echo "Versión actual: $VERSION_LOCAL"
 
+# Ejecutar actualización
 UPDATE_CHECK
 
-mkdir -p "$CONFIG_DIR"
+mkdir -p "$CONFIGDIR"
 mkdir -p "$DEST"
 cd "$DEST"
 
@@ -80,7 +84,11 @@ case "$do_dl" in
             echo "No se encontraron archivos mp3 para reproducir. Por favor descarga primero."
             exit 1
         else
-            nohup mpv --shuffle "${files[@]}" > /dev/null 2>&1 &
+            # Lanzar descarga en background	
+		nohup yt-dlp $PROXY_ARG --yes-playlist -x --audio-format mp3 --embed-thumbnail --embed-metadata --download-archive "$ARCHIVE" "$URL" > /dev/null 2>&1 &
+
+# Lanzar reproducción y monitoreo con módulo Python
+			python3 "$MODULESDIR/Listener.py"
             exit 0
         fi
         ;;
@@ -133,21 +141,33 @@ case "$do_dl" in
         else
             PROXY_ARG=""
         fi
-        #Descarga con yt-dlp
-        echo "Descargando solo los temas nuevos en mp3..."
-        yt-dlp $PROXY_ARG --yes-playlist -x --audio-format mp3 --embed-thumbnail --embed-metadata --download-archive "$ARCHIVE" "$URL" 
 
-        # Reproducir tras descarga
+        # Iniciar descarga en segundo plano
+        echo "Iniciando descarga en segundo plano..."
+        nohup yt-dlp $PROXY_ARG --yes-playlist -x --audio-format mp3 --embed-thumbnail --embed-metadata --download-archive "$ARCHIVE" "$URL" > /dev/null 2>&1 &
+
+        # Inicia reproducción con los archivos existentes en paralelo
         shopt -s nullglob
         files=("$DEST"/*.mp3)
         if [ ${#files[@]} -eq 0 ]; then
-            echo "No se encontraron archivos compatibles después de la descarga."
-            exit 1
-        else
-            echo "¡Listo! Reproduciendo con mpv en modo aleatorio..."
-            nohup mpv  --shuffle "${files[@]}" > /dev/null 2>&1 &
-            exit 0
+            echo "No se encontraron canciones descargadas aún. Espera mientras se descarga..."
+            # Esperar un momento para que descargue alguna canción
+            sleep 10
+            files=("$DEST"/*.mp3)
+            if [ ${#files[@]} -eq 0 ]; then
+                echo "Aún no hay canciones para reproducir. Fin."
+                exit 1
+            fi
         fi
+
+        echo "Reproduciendo música con mpv en modo aleatorio mientras se descarga..."
+
+# Lanzar reproducción y monitoreo con módulo Python
+			python3 "$MODULESDIR/Listener.py"
+
+        # Esperar que el proceso de mpv y yt-dlp terminen (opcional)
+        wait
+
+        exit 0
         ;;
 esac
-# --no-audio-display
