@@ -10,7 +10,7 @@ EOF
 
 echo ""
 
-DEPENDENCIAS=(yt-dlp mpv curl wget sha256sum)
+DEPENDENCIAS=(yt-dlp mpv curl wget sha256sum python3-pip)
 
 FALTAN=()
 
@@ -40,6 +40,15 @@ else
   echo "Todas las dependencias están instaladas, continuando..."
 fi
 
+echo "Instalando dependencias Python necesarias..."
+
+if command -v pip3 &>/dev/null; then
+  pip3 install --user watchdog python-mpv
+else
+  echo "pip3 no encontrado. Por favor instala pip3 para continuar con las dependencias Python."
+fi
+
+
 # Rutas y URLs
 SCRIPT_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/neYTMusic.sh"
 INSTALL_PATH="$HOME/.local/bin/neYTMusic"
@@ -52,7 +61,7 @@ mkdir -p "$MODULESDIR"
 # Descargar módulos desde repo y guardarlos en Modules
 echo "Descargando módulos..."
 BASE_MODULES_URL="https://raw.githubusercontent.com/NeTenebraes/neYTMusic-Downloader/main/Modules"
-MODULES=("update.sh")  # Aquí lista los módulos que quieras descargar
+MODULES=("update.sh" "Listener.py")  # Aquí lista los módulos que quieras descargar
 
 for module in "${MODULES[@]}"; do
   echo "Descargando módulo $module..."
